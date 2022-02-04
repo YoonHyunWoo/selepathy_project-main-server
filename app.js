@@ -13,7 +13,7 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
+let i = 0;
 //<------------------------------------------기본설정 끝 ---------------------------------------->
 
 
@@ -39,6 +39,7 @@ con.connect((err) => {
 
 //<-------------------------------세션을 통한 자동로그인 시작 -------------------------------------------------->
 app.get('/', (req, res) => {
+    req.session.count=0;
     if (req.session.logined) {
         res.render('logout.ejs', {
             id: req.session.user_id
@@ -46,19 +47,37 @@ app.get('/', (req, res) => {
         console.log(req.session);
     } else {
         console.log(req.session);
-        res.render('login.ejs');
+        res.render('login.ejs',{
+            id:" "
+        });
     }
 });
 
 
 //<-------------------------------세션을 통한 자동로그인 끝-------------------------------------------------->
 
+//<-------------------------------회원가입 페이지 로드 시작 ----------------------------------------->
+
+app.get('/signup',(req,res)=>{
+    res.render('signup.ejs');
+})
+
+//<-----------------------------------회원가입 페이지 로드 끝 --------------------------------->
+
 //<-------------------------------MySQL 로그인 시작 ----------------------------------------------------------->
 app.post('/', (req, res) => {
     con.query(`SELECT * FROM login WHERE id="${req.body.id}"`, (error, rows, fields) => {
         var user = JSON.parse(JSON.stringify(rows));
-        if (user[0] == undefined) {
-            console.log("id가 틀립니다!");
+        
+        if(req.body.id==""){
+            res.render('login.ejs',{
+                id:`아이디를 입력해주세요!`
+            });
+        }else if (user[0] == undefined) {
+            req.session.count++;
+            res.render('login.ejs',{
+                id:`아이디를 ${req.session.count}회 틀렸습니다!`
+            });
         } else if (user[0].pwd == req.body.pwd) {
             req.session.logined = true;
             req.session.user_name = user[0].name;
@@ -77,7 +96,9 @@ app.post('/', (req, res) => {
 //INSERT into user (id,pwd,name) VALUES ('id','wwqq','이정범'); <== 회원가입 MySQL
 
 app.post('/signup', (req, res) => {
-
+    con.query(`INSERT into login (id,pwd,name) VALUES ('${req.body.id}','${req.body.pwd}','${req.body.name}')`,(error, rows, fields)=>{
+        res.redirect('/');
+    }); 
 })
 
 //<----------------------------------회원가입 끝 --------------------------------------------------------->
