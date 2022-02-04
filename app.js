@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 
 //<-------------------------------회원가입 페이지 로드 시작 ----------------------------------------->
 
-app.get('/signup',(req,res)=>{
+app.get('/signup',(req,res)=>{  
     res.render('signup.ejs');
 })
 
@@ -68,7 +68,6 @@ app.get('/signup',(req,res)=>{
 app.post('/', (req, res) => {
     con.query(`SELECT * FROM login WHERE id="${req.body.id}"`, (error, rows, fields) => {
         var user = JSON.parse(JSON.stringify(rows));
-        
         if(req.body.id==""){
             res.render('login.ejs',{
                 id:`아이디를 입력해주세요!`
