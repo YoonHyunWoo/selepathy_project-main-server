@@ -3,10 +3,10 @@ const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
 
 const con = mysql.createConnection({
-    host: 'db-yhw.cs7crgxlvnm1.us-west-2.rds.amazonaws.com',
+    host: '데이터베이스 주소',
     user: 'root',
-    password: 'a88310027',
-    database: 'login'
+    password: 'password',
+    database: 'database'
 });
 
 con.connect((err) => {
