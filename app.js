@@ -8,6 +8,7 @@ const Connection = require('mysql/lib/Connection');
 const {
     use
 } = require('express/lib/router');
+const { json } = require('body-parser');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({
@@ -90,6 +91,25 @@ app.post('/', (req, res) => {
 
 });
 //<----------------------------------MySQL 로그인 끝 -------------------------------------------------------->
+
+//<--------------------------------비밀번호 찾기 시작---------------------------------------------------->
+
+app.get('/findpwd',(req,res)=>{
+    res.render('findpwd.ejs');
+});
+app.post('/findpwd',(req,res)=>{
+    con.query(`SELECT * FROM login WHERE id="${req.body.id}"`, (error,rows,fields)=>{
+        var user = JSON.parse(JSON.stringify(rows));
+        if(req.body.name==user[0].name){
+            res.render('allowpwd', {
+                pwd : user[0].pwd
+            })
+        }
+    })
+    
+})
+
+//<-=--------------------------------비밀번호 찾기 끝------------------------------------------------->
 
 //<----------------------------------회원가입 시작 --------------------------------------------------------->
 //INSERT into user (id,pwd,name) VALUES ('id','wwqq','이정범'); <== 회원가입 MySQL
