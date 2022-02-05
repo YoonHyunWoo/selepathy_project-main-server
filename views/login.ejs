@@ -24,6 +24,17 @@ a {
 	cursor: pointer;
   transition: all 200ms linear;
 }
+#top{}
+#dir{
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  text-decoration: underline;
+}
+#dlraud{
+  display: inline;
+}
 a:hover {
 	text-decoration: none;
 }
@@ -41,6 +52,11 @@ p {
 }
 h4 {
   font-weight: 600;
+}
+#side{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 5px;
 }
 h6 span{
   padding: 0 20px;
@@ -331,10 +347,17 @@ h6 span{
 													<input type="password" name="pwd" class="form-style" placeholder="비밀번호" id="logpass" autocomplete="off" required="">
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
-												 <button class="btn mt-4" type="submit">Login</button>
-												<p class="mb-0 mt-4 text-center"><a href="findpwd" class="link">비밀번호 찾기</a></p>
+                        
+												 <button class="btn mt-4" type="submit" id="top">Login</button>
+                         <p></p>		
+                        </form>
+                            
+                            <div id = "side">
+                              <a href="findpwd" class="link" id="p">비밀번호 찾기</a>
+                              <form action="/" method="post" id="dlraud"> <button type="submit" class="link" id="dir">익명으로 접속</button> </form>
+                            </div>
+                            
 											  </div>
-											</form>
 										</div>
 									  </div>
 									  
