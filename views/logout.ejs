@@ -17,28 +17,20 @@
 body{
         align-items : center;
         height: 100%;
-        overflow: hidden ;
+        overflow: visible;
         background-image:url('https://yhw-back-img.s3.ap-northeast-2.amazonaws.com/background-image.png') ;
         background-repeat : no-repeat;
         background-size : cover;
         
     }
-/* #backcolor{
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+#container {
     background: #333;
 	 color: #e8e8e8;
-     width: 90%;
-	 min-height: 88vh;
-	 min-width: 20rem;
-	 margin: 1em auto;
-	 border-radius: 8px;
-	 padding: 1.5rem;
-	 font-family: 'Lato', sans-serif;
-} */
- #container {
-    background: #333;
-	 color: #e8e8e8;
-	 width: 80%;
-	 min-height: 120vh;
+	 width: 50%;
+	 min-height: 100vh;
 	 min-width: 20rem;
 	 margin: 1em auto;
 	 border-radius: 8px;
@@ -63,9 +55,6 @@ body{
 	 font-size: 2rem;
 	 font-weight: bold;
 	 text-align: center;
-}
-#container{
-    width: 50%;
 }
  #container .message .contents {
 	 background: #1c1c1c;
