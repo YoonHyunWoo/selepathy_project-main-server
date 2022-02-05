@@ -5,6 +5,7 @@ const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
+const fs = require('fs');
 const {
     use
 } = require('express/lib/router');
@@ -14,7 +15,6 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-let i = 0;
 //<------------------------------------------기본설정 끝 ---------------------------------------->
 
 
@@ -47,9 +47,11 @@ app.get('/', (req, res) => {
         console.log(req.session);
     } else {
         console.log(req.session);
-        res.render('login.ejs',{
-            id:" "
-        });
+        
+            res.render('login.ejs',{
+                id:" "
+            });
+        
     }
 });
 
@@ -75,9 +77,12 @@ app.post('/', (req, res) => {
         } else if (user[0].pwd == req.body.pwd) {
             req.session.logined = true;
             req.session.user_name = user[0].name;
+            fs.readFile('views/fallpwd.ejs', (err,data)=>{ 
+                console.log(data);
             res.render('logout.ejs', {
                 id: user[0].name
             });
+            })
         } else {
             req.session.count++;
             res.render('allowpwd.ejs',{

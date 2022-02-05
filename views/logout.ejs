@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+    
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>전음</title>
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -12,11 +14,31 @@
  * {
 	 box-sizing: border-box;
 }
+body{
+        align-items : center;
+        height: 100%;
+        overflow: hidden ;
+        background-image:url('https://yhw-back-img.s3.ap-northeast-2.amazonaws.com/background-image.png') ;
+        background-repeat : no-repeat;
+        background-size : cover;
+        
+    }
+/* #backcolor{
+    background: #333;
+	 color: #e8e8e8;
+     width: 90%;
+	 min-height: 88vh;
+	 min-width: 20rem;
+	 margin: 1em auto;
+	 border-radius: 8px;
+	 padding: 1.5rem;
+	 font-family: 'Lato', sans-serif;
+} */
  #container {
-	 background: #333;
+    background: #333;
 	 color: #e8e8e8;
 	 width: 80%;
-	 min-height: 100vh;
+	 min-height: 120vh;
 	 min-width: 20rem;
 	 margin: 1em auto;
 	 border-radius: 8px;
@@ -30,9 +52,6 @@
 	 margin: 1.5rem 0;
 	 position: relative;
 }
-html{
-    background-color: #1f2029;
-}
  #container .message .picture {
 	 background: #666;
 	 width: 4rem;
@@ -44,6 +63,9 @@ html{
 	 font-size: 2rem;
 	 font-weight: bold;
 	 text-align: center;
+}
+#container{
+    width: 50%;
 }
  #container .message .contents {
 	 background: #1c1c1c;
@@ -88,44 +110,45 @@ html{
 <body>
     
     <div id="container">
-        <ul>
-          <li class="message">
-            <div class="picture">(:</div>
-            <div class="contents">
-              These are the message's contents.
-              <br />
-              Adding more text to see how it turns out.
-              <br />
-              And yet some
-              <br />
-              more
-              <br />
-              lines
-            </div>
-          </li>
-          <form action="/logout" method="POST">
-            <button type="submit">Logout</button>
-        </form>
-    </body>
-          <li class="message">
-            <div class="picture">(:</div>
-            <div class="contents">
-              This is another comment
-              <br />
-              with two lines
-            </div>
-          </li>
-          
-          <li class="message mine">
-            <div class="picture">:)</div>
-            <div class="contents">Some other message</div>
-          </li>
-          
-          <li class="message">
-            <div class="picture">(:</div>
-            <div class="contents">Some other message</div>
-          </li>
-        </ul>
+        
+        <div id="backcolor">
+            <ul>
+                <li class="message">
+                  <div class="picture">(:</div>
+                  <div class="contents">
+                    These are the message's contents.
+                    <br />
+                    Adding more text to see how it turns out.
+                    <br />
+                    And yet some
+                    <br />
+                    more
+                    <br />
+                    lines
+                  </div>
+                </li>
+                
+                <li class="message">
+                  <div class="picture">(:</div>
+                  <div class="contents">
+                    This is another comment
+                    <br />
+                    with two lines
+                  </div>
+                </li>
+                
+                <li class="message mine">
+                  <div class="picture">:)</div>
+                  <div class="contents">Some other message</div>
+                </li>
+                
+                <li class="message">
+                  <div class="picture">(:</div>
+                  <div class="contents">Some other message</div>
+                </li>
+              </ul>
+        </div>   
+        
       </div>
 </body>
 </html>
