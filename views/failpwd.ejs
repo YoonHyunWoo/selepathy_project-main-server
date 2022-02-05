@@ -313,55 +313,22 @@ h6 span{
 				<div class="row full-height justify-content-center">
 					<div class="col-12 text-center align-self-center py-5">
 						<div class="section pb-5 pt-5 pt-sm-2 text-center">
-							<h6 class="mb-0 pb-3"><span>로그인 </span><span>회원가입</span></h6>
-							  <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+						
 							  <label for="reg-log"></label>
 							<div class="card-3d-wrap mx-auto">
 								<div class="card-3d-wrapper">
 									<div class="card-front">
 										<div class="center-wrap">
 											<div class="section text-center">
-											<form action="/" method="POST">
-												<h4 class="mb-4 pb-3">로그인</h4>
-												<div class="form-group">
-														<input type="text" name="id" class="form-style" placeholder="ID" id="logemail" autocomplete="off" required="">
-														<i class="input-icon uil uil-at"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="password" name="pwd" class="form-style" placeholder="비밀번호" id="logpass" autocomplete="off" required="">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												 <button class="btn mt-4" type="submit">Login</button>
-												<p class="mb-0 mt-4 text-center"><a href="findpwd" class="link">비밀번호 찾기</a></p>
+											<form action="/findpwd" method="GET">
+												<h4 class="mb-4 pb-3"><%= pwd %></h4>											
+												 <button class="btn mt-4" type="submit">돌아가기</button>
 											  </div>
 											</form>
 										</div>
 									  </div>
 									  
-									<div class="card-back">
-										<div class="center-wrap">
-											<div class="section text-center">
-												<h4 class="mb-4 pb-3">회원가입</h4>
-												<form action="/signup" method="POST">
-												<div class="form-group">
-													<input type="text" name="name" class="form-style" placeholder="이름" id="logname" autocomplete="off" required="">
-													<i class="input-icon uil uil-user"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="text" name="id" class="form-style" placeholder="아이디" id="logemail" autocomplete="off" required="">
-													<i class="input-icon uil uil-at"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="password" name="pwd" class="form-style" placeholder="비밀번호" id="logpass" autocomplete="off" required="">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<button type="submit" class="btn mt-4">submit</button>
-												</form>
-											</div>
-
-										  </div>
-									  </div>
-								  </div>
+				
 							  </div>
 						  </div>
 					  </div>

@@ -40,7 +40,6 @@ con.connect((err) => {
 
 //<-------------------------------세션을 통한 자동로그인 시작 -------------------------------------------------->
 app.get('/', (req, res) => {
-    req.session.count=0;
     if (req.session.logined) {
         res.render('logout.ejs', {
             id: req.session.user_id
@@ -68,15 +67,10 @@ app.get('/signup',(req,res)=>{
 //<-------------------------------MySQL 로그인 시작 ----------------------------------------------------------->
 app.post('/', (req, res) => {
     con.query(`SELECT * FROM login WHERE id="${req.body.id}"`, (error, rows, fields) => {
-        var user = JSON.parse(JSON.stringify(rows));
-        if(req.body.id==""){
-            res.render('login.ejs',{
-                id:`아이디를 입력해주세요!`
-            });
-        }else if (user[0] == undefined) {
-            req.session.count++;
-            res.render('login.ejs',{
-                id:`아이디를 ${req.session.count}회 틀렸습니다!`
+        var user = JSON.parse(JSON.stringify(rows));        
+        if (user[0] == undefined) {
+            res.render('allowpwd.ejs',{
+                pwd:`없는 아이디입니다.`
             });
         } else if (user[0].pwd == req.body.pwd) {
             req.session.logined = true;
@@ -85,8 +79,10 @@ app.post('/', (req, res) => {
                 id: user[0].name
             });
         } else {
-            console.log("password가 틀립니다!");
-        }
+            req.session.count++;
+            res.render('allowpwd.ejs',{
+                pwd : `비밀번호를 ${req.session.count}회 틀렸습니다.`
+            });}
     });
 
 });
@@ -100,9 +96,18 @@ app.get('/findpwd',(req,res)=>{
 app.post('/findpwd',(req,res)=>{
     con.query(`SELECT * FROM login WHERE id="${req.body.id}"`, (error,rows,fields)=>{
         var user = JSON.parse(JSON.stringify(rows));
-        if(req.body.name==user[0].name){
+        if(user[0]==undefined){
+            console.log(user[0]);
+            res.render('failpwd.ejs',{
+                pwd : `아이디를 정확히 입력해주세요.`,
+            })
+        }else if(req.body.name==user[0].name){
             res.render('allowpwd', {
-                pwd : user[0].pwd
+                pwd : `비밀번호는 ${user[0].pwd} 입니다.`
+            })
+        }else{
+            res.render('failpwd.ejs', {
+                pwd : `이름을 정확히 입력해주세요.`
             })
         }
     })
@@ -116,7 +121,9 @@ app.post('/findpwd',(req,res)=>{
 
 app.post('/signup', (req, res) => {
     con.query(`INSERT into login (id,pwd,name) VALUES ('${req.body.id}','${req.body.pwd}','${req.body.name}')`,(error, rows, fields)=>{
-        res.redirect('/');
+        res.render('allowpwd.ejs',{
+            pwd : `회원가입이 완료되었습니다!`
+        });
     }); 
 })
 
