@@ -26,9 +26,10 @@ app.use(session({
     store: new FileStore()
 }));
 const con = mysql.createConnection({
-    host: 'localhost',
+    host: '34.212.179.53',
+    port:3306,
     user: 'root',
-    password: 'password',
+    password: 'ykl1013',
     database: 'login'
 });
 
