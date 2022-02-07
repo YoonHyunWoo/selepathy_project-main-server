@@ -141,6 +141,6 @@ app.post('/logout', (req, res) => {
     res.redirect('/');
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
-app.listen(3000, () => {
-    console.log('listening 3000Port');
+app.listen(80, () => {
+    console.log('listening 80Port');
 });
