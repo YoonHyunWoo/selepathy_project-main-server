@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
 const fs = require('fs');
+const DB = require('./DB.js');
+console.log(DB.user);
 const {
     use
 } = require('express/lib/router');
@@ -26,11 +28,11 @@ app.use(session({
     store: new FileStore()
 }));
 const con = mysql.createConnection({
-    host: '34.212.179.53',
-    port:3306,
-    user: 'root',
-    password: 'ykl1013',
-    database: 'login'
+    host: DB.host,
+    port: DB.port,
+    user: DB.user,
+    password: DB.password,
+    database: DB.database
 });
 
 con.connect((err) => {
