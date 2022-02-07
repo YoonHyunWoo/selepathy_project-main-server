@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.io Test</title>
+
+  <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+</head>
+
+<body style="zoom: 1.7;">
+  <div id="chatContent" style="margin-left:250px; margin-right:250px;">
+
+  </div>
+  <input id="myChat" type="text" style="position: fixed; bottom: 0px; width: 52vw; left: 0px; border: 7.6px inset gray;">
+  <p style="position: fixed; bottom: 0px; width: 5.5vw; right: 0px; border: 6px inset gray; margin-bottom: 0px; margin-top: 0px; text-align: center;">전송</p>
+  <script>
+    // 1. locahost:3000에 연결한다
+    var socket = io.connect('http://localhost:3001');
+
+    // 2.msg이벤트가 들어오면 출력
+    socket.on('msg', function (data) {
+      $("#chatContent").append(`<p style = 'color:black; text-align:right; background-color : whitesmoke; margin-top:0; margin-bottom:0' >${data}</p>`);
+    });
+
+    $("#myChat").on("keyup", function () {
+      if (window.event.keyCode == 13) {
+        //서버에 보냄 msg이벤트 데이타로 싫어서
+        $("#chatContent").append(`나 : ${$(this).val()}<br>`);
+        socket.emit('msg', $(this).val());
+        $(this).val("");
+      }
+    });
+  </script>
+</body>
+
+</html>

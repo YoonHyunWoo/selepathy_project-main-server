@@ -143,6 +143,12 @@ app.post('/logout', (req, res) => {
     res.redirect('/');
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
-app.listen(80, () => {
+app.listen(3000, () => {
     console.log('listening 80Port');
 });
+
+app.get('/js/socket.io.min.js', (req,res)=>{
+    fs.readFile('js/socket.io.min.js',(err,data)=>{
+        res.send(data);
+    })
+})
