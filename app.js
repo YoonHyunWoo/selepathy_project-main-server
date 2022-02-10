@@ -1,4 +1,5 @@
 //<-----------------------------------------기본설정 시작------------------------------------------------------>
+//asdfasggfgit
 const app = require('express')();
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
