@@ -6,6 +6,8 @@ const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 const fs = require('fs');
 const DB = require('./DB.js');
 console.log(DB.user);
@@ -145,11 +147,39 @@ app.post('/logout', (req, res) => {
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
 app.listen(3000, () => {
-    console.log('listening 80Port');
+    console.log('listening Port');
 });
 
+//<----------------------------채팅페이지 로드 ----------------------->
+
+
+app.get('/chating', (req, res) => {
+    res.render('logout.ejs');    // index.ejs을 사용자에게 전달
+})
+
+io.on('connection', (socket) => {   //연결이 들어오면 실행되는 이벤트
+    // socket 변수에는 실행 시점에 연결한 상대와 연결된 소켓의 객체가 들어있다.
+    
+    //socket.emit으로 현재 연결한 상대에게 신호를 보낼 수 있다.
+    socket.emit('usercount', io.engine.clientsCount);
+
+    // on 함수로 이벤트를 정의해 신호를 수신할 수 있다.
+    socket.on('message', (msg) => {
+        //msg에는 클라이언트에서 전송한 매개변수가 들어온다. 이러한 매개변수의 수에는 제한이 없다.
+        console.log('Message received: ' + msg);
+
+        // io.emit으로 연결된 모든 소켓들에 신호를 보낼 수 있다.
+        io.emit('message', msg);
+    });
+});
 app.get('/js/socket.io.min.js', (req,res)=>{
-    fs.readFile('js/socket.io.min.js',(err,data)=>{
-        res.send(data);
+    fs.readFile('js/socket.io.min.js.txt','utf8',(err,data)=>{
+        res.end(data);
     })
 })
+
+app.get('/socket.io/:asd', (req,res)=>{
+    fs.readFile('js/socket.io.min.js.txt','utf8',(err,data)=>{
+        res.end(data);
+    })
+}) 
