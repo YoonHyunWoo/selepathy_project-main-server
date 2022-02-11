@@ -1,5 +1,4 @@
 //<-----------------------------------------기본설정 시작------------------------------------------------------>
-//asdfasggfgit
 const app = require('express')();
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -7,8 +6,6 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
 const fs = require('fs');
-const DB = require('./DB.js');
-console.log(DB.user);
 const {
     use
 } = require('express/lib/router');
@@ -21,6 +18,8 @@ app.use(bodyParser.urlencoded({
 //<------------------------------------------기본설정 끝 ---------------------------------------->
 
 
+
+
 // <------------------------------- 데이터베이스 연결 시작 ------------------------------------------------------->
 app.use(session({
     secret: 'keyboard cat',
@@ -29,11 +28,10 @@ app.use(session({
     store: new FileStore()
 }));
 const con = mysql.createConnection({
-    host: DB.host,
-    port: DB.port,
-    user: DB.user,
-    password: DB.password,
-    database: DB.database
+    host: 'localhost',
+    user: 'root',
+    password: 'DB.password',
+    database: 'login'
 });
 
 con.connect((err) => {
@@ -145,11 +143,5 @@ app.post('/logout', (req, res) => {
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
 app.listen(3000, () => {
-    console.log('listening 80Port');
+    console.log('listening 3000Port');
 });
-
-app.get('/js/socket.io.min.js', (req,res)=>{
-    fs.readFile('js/socket.io.min.js',(err,data)=>{
-        res.send(data);
-    })
-})
