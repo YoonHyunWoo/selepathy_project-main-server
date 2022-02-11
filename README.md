@@ -9,4 +9,4 @@ Semyrong-computer-highscholl chating web application project - MainServer<br>
 * MySQL
 * Bootstrap
 
-Main Server - https://github.com/YoonHyunWoo/selepathy_project-socketServer
+Socket Server - https://github.com/YoonHyunWoo/selepathy_project-socketServer
