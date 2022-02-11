@@ -17,20 +17,10 @@
     "jsonparser": "^1.0.1",
     "mysql": "^2.18.1",
     "redirect": "^0.2.0",
-    "session-file-store": "^1.5.0",
-    "socket.io": "^4.4.1",
-    "socketio": "^1.0.0"
+    "session-file-store": "^1.5.0"
   },
-  "description": "세명 컴퓨터 고등학교 채팅웹앱 프로젝트 <br>\r Semyrong-computer-highscholl chating web application project <br>\r ### skill Set \r * NodeJs\r     * express\r     * socketio\r     * electron\r * MySQL\r * Bootstrap",
+  "description": "",
   "devDependencies": {
     "electron-builder": "^22.14.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YoonHyunWoo/selepathy_project.git"
-  },
-  "bugs": {
-    "url": "https://github.com/YoonHyunWoo/selepathy_project/issues"
-  },
-  "homepage": "https://github.com/YoonHyunWoo/selepathy_project#readme"
+  }
 }

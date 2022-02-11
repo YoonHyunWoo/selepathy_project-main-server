@@ -1,16 +1,11 @@
 //<-----------------------------------------기본설정 시작------------------------------------------------------>
-//asdfasggfgit
 const app = require('express')();
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
 const fs = require('fs');
-const DB = require('./DB.js');
-console.log(DB.user);
 const {
     use
 } = require('express/lib/router');
@@ -23,6 +18,8 @@ app.use(bodyParser.urlencoded({
 //<------------------------------------------기본설정 끝 ---------------------------------------->
 
 
+
+
 // <------------------------------- 데이터베이스 연결 시작 ------------------------------------------------------->
 app.use(session({
     secret: 'keyboard cat',
@@ -31,11 +28,10 @@ app.use(session({
     store: new FileStore()
 }));
 const con = mysql.createConnection({
-    host: DB.host,
-    port: DB.port,
-    user: DB.user,
-    password: DB.password,
-    database: DB.database
+    host: 'localhost',
+    user: 'root',
+    password: 'DB.password',
+    database: 'login'
 });
 
 con.connect((err) => {
@@ -142,6 +138,7 @@ app.post('/logout', (req, res) => {
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
 app.listen(3000, () => {
+<<<<<<< HEAD
     console.log('listening Port');
 });
 
@@ -153,3 +150,7 @@ app.get('/chating', (req, res) => {
     res.redirect('http://localhost:3001/chating');    // index.ejs을 사용자에게 전달
 })
 
+=======
+    console.log('listening 3000Port');
+});
+>>>>>>> 4f981bba4ab0e8fc571e6e6310cacec1a8972570

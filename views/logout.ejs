@@ -1,14 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 4f981bba4ab0e8fc571e6e6310cacec1a8972570
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Document</title>
 </head>
 <body>
     <script>
         location.href = "http://localhost:3001/chating";
     </script>
+=======
+    <title>전음</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+		<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato);
+ * {
+	 box-sizing: border-box;
+}
+body{
+        align-items : center;
+        height: 100%;
+        overflow: visible;
+        background-image:url('https://yhw-back-img.s3.ap-northeast-2.amazonaws.com/background-image.png') ;
+        background-repeat : no-repeat;
+        background-size : cover;
+        
+    }
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+#container {
+   background: #333;
+	 color: #e8e8e8;
+	 width: 50%;
+	 min-height: 100vh;
+	 min-width: 20rem;
+	 margin: 1em auto;
+	 border-radius: 8px;
+	 padding: 1.5rem;
+	 font-family: 'Lato', sans-serif;
+}
+#chatBox{
+  max-height: 85vh;
+	min-width: 20rem;
+  overflow: auto;
+  overflow-x: hidden
+}
+#chatBox::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+ /* #container .message {
+	 display: flex;
+	 flex-direction: horizontal;
+	 margin: 1.5rem 0;
+	 position: relative;
+}
+ #container .message .picture {
+	 background: #666;
+	 width: 4rem;
+	 height: 4rem;
+	 border-radius: 50%;
+	 margin-right: 2rem;
+	 line-height: 4rem;
+	 vertical-align: bottom;
+	 font-size: 2rem;
+	 font-weight: bold;
+	 text-align: center;
+}
+ #container .mine {
+	 flex-direction: row-reverse;
+}
+ #container .mine .picture {
+	 margin-left: 2rem;
+	 margin-right: 0;
+} */
+ /* #contents {
+	 margin-right: 0;
+	 margin-left: calc(4rem - 1rem - 0.5rem);
+	 background: #17191c;
+   border-radius: 4px;
+}
+ #contents::before {
+	 position: absolute;
+	 background: #17191c;
+	 left: auto;
+	 right: calc(4rem + 2rem - 0.75rem/2);
+} */
+.logout{
+  float: right;
+  margin-top: 0.5vh;
+  margin-right: 5vh;
+}
+.myChat{
+  position: absolute;
+  min-width: 86%;
+  min-height: 70%;
+  margin-left: 0%;
+  height: 7%;
+  bottom: 0;
+  border:0 solid black;
+  word-break:break-all;
+  z-index: 2;
+  margin-bottom: 1.4%;
+  margin-left: 1.4%;
+}
+.circle {
+  position: absolute;
+  margin: 0;
+  text-align: center;
+  margin: 0 auto;
+  background-color: black;
+  min-width: 4.2rem;
+  min-height: 4.2rem;
+  line-height: 4.2rem;
+  color: white;
+  font-size: 2.8rem;
+  border-radius: 50%;
+  margin-left: 90%;
+  margin-bottom: 1.5%;
+  bottom: 0;
+  z-index: 2;
+}
+.myChat-back{
+  position: absolute;
+  background-color: gray;
+  bottom: 0%;
+  margin-bottom: -0.85%;
+  margin-left: -1.23%;
+  min-width: 49.55%;
+  min-height: 10%;
+  border-radius: 0 0 8px 8px
+}
+ 
+    </style>
+</head>
+<body>
+  <form class="logout" action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
+    <div id="container">
+        <div id="backcolor">
+          <div id="chatBox">
+            <div id="contents"></div>
+            <div class="myChat-back">
+              <input id="myChat" type="text" class="myChat"/>
+              <div class="circle"><i class="uil uil-message"></i></div>
+            </div>
+              <script>
+                var first_Name = ["신비한","이상한","요상한","일그러진","매혹적인","명섭적인","오징어같은","냄새나는","유명한","신형만"];
+                var Last_Name = ["강아지","고양이","코뿔소","하마","오징어","여우","늑대","스컹크","하마","원숭이"];
+                var autoScroll = document.getElementById("chatBox");
+                // 1. locahost:3000에 연결한다
+                var socket = io.connect('http://localhost:3001');
+                
+                // 2.msg이벤트가 들어오면 출력
+                socket.on('msg', function (data) {
+                  $("#contents").append(`${data}`);
+                });
+            
+                $("#myChat").on("keyup", function () {
+                  if (window.event.keyCode == 13) {
+                    var random_Number1 = Math.floor(Math.random()*10)
+                    var random_Number2 = Math.floor(Math.random()*10)
+                    var TextNum = first_Name[random_Number1].length + Last_Name[random_Number2].length
+                    var spacebar = "";
+            
+                    for(i = 0; i<=7-TextNum; i++){
+                      spacebar += "ㅤ";
+                    }
+                    
+                    console.log(spacebar);
+            
+                    //서버에 보냄 msg이벤트 데이타로 실어서
+                    $("#contents").append(`${first_Name[random_Number1]} ${Last_Name[random_Number2]} ${spacebar} <br> : ${$(this).val()}<br>`);
+                    socket.emit('msg', $(this).val());  
+                    $(this).val("");
+                    autoScroll.scrollTop = autoScroll.scrollHeight;
+                  }
+                });
+              </script>
+                <!-- <ul>
+                    <li class="message">
+                      <div class="picture">(:</div>
+                      <div class="contents">
+                        These are the message's contents.
+                        <br />
+                        Adding more text to see how it turns out.
+                        <br />
+                        And yet some
+                        <br />
+                        more
+                        <br />
+                        lines
+                      </div>
+                    </li>
+                    
+                    <li class="message">
+                      <div class="picture">(:</div>
+                      <div class="contents">
+                        This is another comment
+                        <br />
+                        with two lines
+                      </div>
+                    </li>
+                    
+                    <li class="message mine">
+                      <div class="picture">:)</div>
+                      <div class="contents">Some other message</div>
+                    </li>
+                    
+                    <li class="message">
+                      <div class="picture">(:</div>
+                      <div class="contents">Some other message</div>
+                    </li>
+                  </ul> -->  
+          </div>
+      </div>
+      </div>
+>>>>>>> 4f981bba4ab0e8fc571e6e6310cacec1a8972570
 </body>
 </html>
