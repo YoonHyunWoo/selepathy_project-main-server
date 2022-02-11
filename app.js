@@ -86,7 +86,7 @@ app.post('/', (req, res) => {
             fs.readFile('views/fallpwd.ejs', (err,data)=>{ 
                 console.log(data);
             res.render('logout.ejs', {
-                id: user[0].name
+                id: user[0].name,
             });
             })
         } else {
@@ -125,11 +125,6 @@ app.post('/findpwd',(req,res)=>{
     
 })
 
-//<-=--------------------------------비밀번호 찾기 끝------------------------------------------------->
-
-//<----------------------------------회원가입 시작 --------------------------------------------------------->
-//INSERT into user (id,pwd,name) VALUES ('id','wwqq','이정범'); <== 회원가입 MySQL
-
 app.post('/signup', (req, res) => {
     con.query(`INSERT into login (id,pwd,name) VALUES ('${req.body.id}','${req.body.pwd}','${req.body.name}')`,(error, rows, fields)=>{
         res.render('allowpwd.ejs',{
@@ -154,32 +149,7 @@ app.listen(3000, () => {
 
 
 app.get('/chating', (req, res) => {
-    res.render('logout.ejs');    // index.ejs을 사용자에게 전달
+    res.session.logined=true
+    res.redirect('http://localhost:3001/chating');    // index.ejs을 사용자에게 전달
 })
 
-io.on('connection', (socket) => {   //연결이 들어오면 실행되는 이벤트
-    // socket 변수에는 실행 시점에 연결한 상대와 연결된 소켓의 객체가 들어있다.
-    
-    //socket.emit으로 현재 연결한 상대에게 신호를 보낼 수 있다.
-    socket.emit('usercount', io.engine.clientsCount);
-
-    // on 함수로 이벤트를 정의해 신호를 수신할 수 있다.
-    socket.on('message', (msg) => {
-        //msg에는 클라이언트에서 전송한 매개변수가 들어온다. 이러한 매개변수의 수에는 제한이 없다.
-        console.log('Message received: ' + msg);
-
-        // io.emit으로 연결된 모든 소켓들에 신호를 보낼 수 있다.
-        io.emit('message', msg);
-    });
-});
-app.get('/js/socket.io.min.js', (req,res)=>{
-    fs.readFile('js/socket.io.min.js.txt','utf8',(err,data)=>{
-        res.end(data);
-    })
-})
-
-app.get('/socket.io/:asd', (req,res)=>{
-    fs.readFile('js/socket.io.min.js.txt','utf8',(err,data)=>{
-        res.end(data);
-    })
-}) 
