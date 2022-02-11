@@ -138,7 +138,6 @@ app.post('/logout', (req, res) => {
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
 app.listen(3000, () => {
-<<<<<<< HEAD
     console.log('listening Port');
 });
 
@@ -150,7 +149,4 @@ app.get('/chating', (req, res) => {
     res.redirect('http://localhost:3001/chating');    // index.ejs을 사용자에게 전달
 })
 
-=======
     console.log('listening 3000Port');
-});
->>>>>>> 4f981bba4ab0e8fc571e6e6310cacec1a8972570
