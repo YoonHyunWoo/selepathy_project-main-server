@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
 const fs = require('fs');
+const DB = require('./DB.js');
+console.log(DB.user);
 const {
     use
 } = require('express/lib/router');
@@ -18,8 +20,6 @@ app.use(bodyParser.urlencoded({
 //<------------------------------------------기본설정 끝 ---------------------------------------->
 
 
-
-
 // <------------------------------- 데이터베이스 연결 시작 ------------------------------------------------------->
 app.use(session({
     secret: 'keyboard cat',
@@ -28,10 +28,11 @@ app.use(session({
     store: new FileStore()
 }));
 const con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'DB.password',
-    database: 'login'
+    host: DB.host,
+    port: DB.port,
+    user: DB.user,
+    password: DB.password,
+    database: DB.database
 });
 
 con.connect((err) => {
@@ -82,7 +83,7 @@ app.post('/', (req, res) => {
             fs.readFile('views/fallpwd.ejs', (err,data)=>{ 
                 console.log(data);
             res.render('logout.ejs', {
-                id: user[0].name,
+                id: user[0].name
             });
             })
         } else {
@@ -121,6 +122,11 @@ app.post('/findpwd',(req,res)=>{
     
 })
 
+//<-=--------------------------------비밀번호 찾기 끝------------------------------------------------->
+
+//<----------------------------------회원가입 시작 --------------------------------------------------------->
+//INSERT into user (id,pwd,name) VALUES ('id','wwqq','이정범'); <== 회원가입 MySQL
+
 app.post('/signup', (req, res) => {
     con.query(`INSERT into login (id,pwd,name) VALUES ('${req.body.id}','${req.body.pwd}','${req.body.name}')`,(error, rows, fields)=>{
         res.render('allowpwd.ejs',{
@@ -137,16 +143,6 @@ app.post('/logout', (req, res) => {
     res.redirect('/');
 });
 // <--------------------------------------------------로그아웃 끝 ------------------------------------------->
-app.listen(3000, () => {
-    console.log('listening Port');
+app.listen(80, () => {
+    console.log('listening 80Port');
 });
-
-//<----------------------------채팅페이지 로드 ----------------------->
-
-
-app.get('/chating', (req, res) => {
-    res.session.logined=true
-    res.redirect('http://localhost:3001/chating');    // index.ejs을 사용자에게 전달
-})
-
-    console.log('listening 3000Port');
