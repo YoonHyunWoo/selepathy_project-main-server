@@ -336,7 +336,7 @@ h6 span{
 									<div class="card-front">
 										<div class="center-wrap">
 											<div class="section text-center">
-											<form action="/" method="POST">
+											<form action="/" method="POST" id = 'twotwo'>
 												<h4 class="mb-4 pb-3">로그인</h4>
 												<div class="form-group">
 														<input type="text" name="id" class="form-style" placeholder="ID" id="logemail" autocomplete="off" required="">
@@ -347,7 +347,7 @@ h6 span{
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
                         
-												 <button class="btn mt-4" type="submit" id="top">Login</button>
+												 <button class="btn mt-4" type="submit" id="top" onclick="setTimeout(()=>{document.getElementById('twotwo').submit()},100)">Login</button>
                          <p></p>		
                         </form>
                             
