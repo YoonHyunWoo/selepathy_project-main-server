@@ -287,22 +287,19 @@ h6 span{
   -ms-flex-pack: center;
   text-align: center;
   border: none;
-  background-color: #F09895
-;
+  background-color: #F09895;
   color: #102770;
   box-shadow: 0 8px 24px 0 #593638;
 }
 .btn:active,
 .btn:focus{  
   background-color: #102770;
-  color: #F09895
-;
+  color: #F09895;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 .btn:hover{  
   background-color: #102770;
-  color: #F09895
-;
+  color: #F09895;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 
@@ -339,7 +336,7 @@ h6 span{
 									<div class="card-front">
 										<div class="center-wrap">
 											<div class="section text-center">
-											<form action="/" method="POST">
+											<form action="/" method="POST" id = 'twotwo'>
 												<h4 class="mb-4 pb-3">로그인</h4>
 												<div class="form-group">
 														<input type="text" name="id" class="form-style" placeholder="ID" id="logemail" autocomplete="off" required="">
@@ -350,7 +347,7 @@ h6 span{
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
                         
-												 <button class="btn mt-4" type="submit" id="top">Login</button>
+												 <button class="btn mt-4" type="submit" id="top" onclick="setTimeout(()=>{document.getElementById('twotwo').submit()},100)">Login</button>
                          <p></p>		
                         </form>
                             
