@@ -78,11 +78,9 @@ app.post('/', (req, res) => {
             });
         } else if (user[0].pwd == req.body.pwd) {
             req.session.logined = true;
-            req.session.user_name = user[0].name;
-            fs.readFile('views/fallpwd.ejs', (err, data) => {
-                console.log(data);
-                res.redirect('http://localhost:3001/chating');
-            })
+            req.session.user_name = user[0].name; 
+            console.log(req.session.user_name)
+            res.redirect('http://localhost:3001/chating');
         } else {
             req.session.count++;
             res.render('allowpwd.ejs', {
