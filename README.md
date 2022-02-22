@@ -6,5 +6,6 @@ Semyrong-computer-highscholl chating web application project <br>
     * express
     * socketio
     * electron
+    * swagger
 * MySQL
 * Bootstrap
