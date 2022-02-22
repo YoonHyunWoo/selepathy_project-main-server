@@ -6,7 +6,13 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Connection = require('mysql/lib/Connection');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
+const mail = require('./mail.js')
 const DB = require('./DB.js');
+const { swaggerUi, specs } = require("./swagger/swagger")
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
+
 const {
     use
 } = require('express/lib/router');
@@ -79,7 +85,8 @@ app.post('/', (req, res) => {
         } else if (user[0].pwd == req.body.pwd) {
             req.session.logined = true;
             req.session.user_name = user[0].name; 
-            console.log(req.session.user_name)
+            req.session.dkdlel=user[0].id;
+            req.session.pwd=user[0].pwd
             res.redirect('http://localhost:3001/chating');
         } else {
             req.session.count++;
@@ -142,3 +149,66 @@ app.post('/logout', (req, res) => {
 app.listen(3000, () => {
     console.log('listening 80Port');
 });
+
+let transporter = nodemailer.createTransport({
+    // 사용하고자 하는 서비스, gmail계정으로 전송할 예정이기에 'gmail'
+    service: 'gmail',
+    // host를 gmail로 설정
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      // Gmail 주소 입력, 'testmail@gmail.com'
+      user: 'yjs88zerg@gmail.com',
+      // Gmail 패스워드 입력
+      pass: mail.pwd,
+    },
+  });
+
+
+let authpass;
+
+app.post('/auth',async (req,res)=>{
+    var random = Math.floor(Math.random() * 1000) + 1;
+    res.render('auth',{
+        id:req.body.id
+    })
+    let info = await transporter.sendMail({
+        // 보내는 곳의 이름과, 메일 주소를 입력
+        from: `"YKL Team" <yjs88zerg@gmail.com>`,
+        // 받는 곳의 메일 주소를 입
+        to: req.body.id,
+        // 보내는 메일의 제목을 입력
+        subject: 'YKL 이메일 인증',
+        // 보내는 메일의 내용을 입력
+        // text: 일반 text로 작성된 내용
+        // html: html로 작성된 내용
+        html: `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+            <form action="http://localhost:3000/pass" method="POST">
+                <input type="text" value = "${random}" name="random" style="display:none">
+                <input type="text" value = "${req.body.id}" name="id" style="display:none">
+                <input type="text" value = "${req.body.pwd}" name="pwd" style="display:none">
+                <input type="text" value = "${req.body.name}" name="name" style="display:none">
+                <button>인증하기</button>
+            </form>
+        </body>
+        </html>`
+      });
+      authpass=random;
+})
+
+app.post('/pass',(req,res)=>{
+    if(req.body.random==authpass){
+        console.log('완료!')
+        console.log(req.body.id)
+        res.redirect('/')
+    }
+})
