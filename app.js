@@ -51,7 +51,7 @@ con.connect((err) => {
 //<-------------------------------세션을 통한 자동로그인 시작 -------------------------------------------------->
 app.get('/', (req, res) => {
     if (req.session.logined) {
-        res.redirect('http://localhost:3001/chating');
+        res.redirect('/chating?service=socket');
         console.log(req.session);
     } else {
         console.log(req.session);
@@ -87,7 +87,7 @@ app.post('/', (req, res) => {
             req.session.user_name = user[0].name; 
             req.session.dkdlel=user[0].id;
             req.session.pwd=user[0].pwd
-            res.redirect('http://localhost:3001/chating');
+            res.redirect('/chating?service=socket');
         } else {
             req.session.count++;
             res.render('allowpwd.ejs', {
@@ -169,40 +169,46 @@ let transporter = nodemailer.createTransport({
 let authpass;
 
 app.post('/auth',async (req,res)=>{
-    var random = Math.floor(Math.random() * 1000) + 1;
-    res.render('auth',{
-        id:req.body.id
-    })
-    let info = await transporter.sendMail({
-        // 보내는 곳의 이름과, 메일 주소를 입력
-        from: `"YKL Team" <yjs88zerg@gmail.com>`,
-        // 받는 곳의 메일 주소를 입
-        to: req.body.id,
-        // 보내는 메일의 제목을 입력
-        subject: 'YKL 이메일 인증',
-        // 보내는 메일의 내용을 입력
-        // text: 일반 text로 작성된 내용
-        // html: html로 작성된 내용
-        html: `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-        </head>
-        <body>
-            <form action="http://localhost:3000/pass" method="POST">
-                <input type="text" value = "${random}" name="random" style="display:none">
-                <input type="text" value = "${req.body.id}" name="id" style="display:none">
-                <input type="text" value = "${req.body.pwd}" name="pwd" style="display:none">
-                <input type="text" value = "${req.body.name}" name="name" style="display:none">
-                <button>인증하기</button>
-            </form>
-        </body>
-        </html>`
-      });
-      authpass=random;
+    try{
+        var random = Math.floor(Math.random() * 1000) + 1;
+        res.render('auth',{
+            id:req.body.id
+        })
+        let info = await transporter.sendMail({
+            // 보내는 곳의 이름과, 메일 주소를 입력
+            from: `"YKL Team" <yjs88zerg@gmail.com>`,
+            // 받는 곳의 메일 주소를 입
+            to: req.body.id,
+            // 보내는 메일의 제목을 입력
+            subject: 'YKL 이메일 인증',
+            // 보내는 메일의 내용을 입력
+            // text: 일반 text로 작성된 내용
+            // html: html로 작성된 내용
+            html: `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+                <form action="/pass" method="POST">
+                    <input type="text" value = "${random}" name="random" style="display:none">
+                    <input type="text" value = "${req.body.id}" name="id" style="display:none">
+                    <input type="text" value = "${req.body.pwd}" name="pwd" style="display:none">
+                    <input type="text" value = "${req.body.name}" name="name" style="display:none">
+                    <button>인증하기</button>
+                </form>
+            </body>
+            </html>`
+          });
+          authpass=random;    
+    } catch (err){
+        console.log('error');
+    }
+    
+    
 })
 
 app.post('/pass',(req,res)=>{

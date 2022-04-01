@@ -14,7 +14,7 @@
 </head>
 <body>
     <script>
-        location.href = "http://localhost:3001/chating";
+        location.href = "chating?service=socket";
     </script>
 =======
     <title>전음</title>
@@ -161,7 +161,7 @@ body::-webkit-scrollbar {
                 var Last_Name = ["강아지","고양이","코뿔소","하마","오징어","여우","늑대","스컹크","하마","원숭이"];
                 var autoScroll = document.getElementById("chatBox");
                 // 1. locahost:3000에 연결한다
-                var socket = io.connect('http://localhost:3001');
+                var socket = io.connect('/?service=socket');
                 
                 // 2.msg이벤트가 들어오면 출력
                 socket.on('msg', function (data) {
