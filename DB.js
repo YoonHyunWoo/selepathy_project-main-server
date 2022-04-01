@@ -1,5 +1,5 @@
 
-    const host = "localhost";
+    const host = "database-1.cdrxcthawoa3.ap-northeast-2.rds.amazonaws.com";
     const port = 3306;
     const user= 'root'; 
     const password = "password"

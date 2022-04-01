@@ -152,7 +152,7 @@ app.listen(3000, () => {
 
 let transporter = nodemailer.createTransport({
     // 사용하고자 하는 서비스, gmail계정으로 전송할 예정이기에 'gmail'
-    service: 'gmail',
+    service: 'Gmail',
     // host를 gmail로 설정
     host: 'smtp.gmail.com',
     port: 587,
@@ -193,7 +193,7 @@ app.post('/auth',async (req,res)=>{
                 <title>Document</title>
             </head>
             <body>
-                <form action="/pass" method="POST">
+                <form action="http://3.34.140.15:3000/pass" method="POST">
                     <input type="text" value = "${random}" name="random" style="display:none">
                     <input type="text" value = "${req.body.id}" name="id" style="display:none">
                     <input type="text" value = "${req.body.pwd}" name="pwd" style="display:none">
@@ -205,7 +205,7 @@ app.post('/auth',async (req,res)=>{
           });
           authpass=random;    
     } catch (err){
-        console.log('error');
+        console.log(err);
     }
     
     
